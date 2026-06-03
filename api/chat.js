@@ -7,7 +7,7 @@ module.exports = async function(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   try {
     const { model, messages } = req.body;
-    const genAI = new GoogleGenerativeAI(AQ.Ab8RN6Lgb6I9ANAsC55QRFqEqic-tlaOgmR-V_uJxbhiyMeeiQ)
+    const genAI = new GoogleGenerativeAIAQ.AQ.Ab8RN6Lgb6I9ANAsC55QRFqEqic-tlaOgmR-V_uJxbhiyMeeiQ
     const m = genAI.getGenerativeModel({ model });
     const history = messages.slice(0,-1).map(msg => ({
       role: msg.role === 'assistant' ? 'model' : 'user',
