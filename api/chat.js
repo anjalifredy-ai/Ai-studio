@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   
   const { model, messages } = req.body;
-  const key = process.env.VITE_GEMINI_KEY;
+  const key = "AIzaSyDz0XDGkftCyZZQ1RRZZdKNIK4LplZ3S1Q";
   
   const contents = messages.map(m => ({
     role: m.role === 'assistant' ? 'model' : 'user',
