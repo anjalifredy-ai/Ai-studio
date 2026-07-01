@@ -14,7 +14,21 @@ export interface ModelOption {
 }
 
 export const MODELS: ModelOption[] = [
-  // ---- Groq (very fast, generous free tier) ----
+  // ---- Groq (very fast, generous free tier, models hosted directly) ----
+  {
+    id: "groq-llama-4-scout",
+    label: "Llama 4 Scout (Groq)",
+    provider: "groq",
+    modelId: "meta-llama/llama-4-scout-17b-16e-instruct",
+    description: "Latest Llama 4, strong all-round reasoning",
+  },
+  {
+    id: "groq-llama-4-maverick",
+    label: "Llama 4 Maverick (Groq)",
+    provider: "groq",
+    modelId: "meta-llama/llama-4-maverick-17b-128e-instruct",
+    description: "Latest Llama 4, best for complex tasks",
+  },
   {
     id: "groq-llama-3.3-70b",
     label: "Llama 3.3 70B (Groq)",
@@ -30,73 +44,93 @@ export const MODELS: ModelOption[] = [
     description: "Very fast, lightweight tasks",
   },
   {
-    id: "groq-mixtral",
-    label: "Mixtral 8x7B (Groq)",
-    provider: "groq",
-    modelId: "mixtral-8x7b-32768",
-    description: "Good for long context",
-  },
-  {
     id: "groq-deepseek-r1",
     label: "DeepSeek R1 Distill 70B (Groq)",
     provider: "groq",
     modelId: "deepseek-r1-distill-llama-70b",
     description: "Strong step-by-step reasoning",
   },
+  {
+    id: "groq-qwen3-32b",
+    label: "Qwen 3 32B (Groq)",
+    provider: "groq",
+    modelId: "qwen/qwen3-32b",
+    description: "Great at math and coding",
+  },
+  {
+    id: "groq-gpt-oss-120b",
+    label: "GPT-OSS 120B (Groq)",
+    provider: "groq",
+    modelId: "openai/gpt-oss-120b",
+    description: "OpenAI's open-weight model, very thorough",
+  },
+  {
+    id: "groq-gpt-oss-20b",
+    label: "GPT-OSS 20B (Groq)",
+    provider: "groq",
+    modelId: "openai/gpt-oss-20b",
+    description: "Lighter OpenAI open-weight model, fast",
+  },
+  {
+    id: "groq-kimi-k2",
+    label: "Kimi K2 (Groq)",
+    provider: "groq",
+    modelId: "moonshotai/kimi-k2-instruct",
+    description: "Excellent for long essays & writing",
+  },
 
   // ---- Google Gemini (free tier via AI Studio) ----
+  {
+    id: "gemini-2.5-flash",
+    label: "Gemini 2.5 Flash",
+    provider: "gemini",
+    modelId: "gemini-2.5-flash",
+    description: "Latest Gemini, fast, multimodal, great all-rounder",
+  },
+  {
+    id: "gemini-2.5-flash-lite",
+    label: "Gemini 2.5 Flash Lite",
+    provider: "gemini",
+    modelId: "gemini-2.5-flash-lite",
+    description: "Even faster, lighter, higher free quota",
+  },
   {
     id: "gemini-2.0-flash",
     label: "Gemini 2.0 Flash",
     provider: "gemini",
     modelId: "gemini-2.0-flash",
-    description: "Fast, multimodal, great all-rounder",
-  },
-  {
-    id: "gemini-1.5-flash",
-    label: "Gemini 1.5 Flash",
-    provider: "gemini",
-    modelId: "gemini-1.5-flash",
-    description: "Reliable free-tier workhorse",
+    description: "Reliable, well-tested free-tier workhorse",
   },
 
-  // ---- DeepSeek native API ----
+  // ---- DeepSeek native API (small paid cost — needs balance) ----
   {
     id: "deepseek-chat",
     label: "DeepSeek V3 (Chat)",
     provider: "deepseek",
     modelId: "deepseek-chat",
-    description: "Great at essays & explanations",
+    description: "Great at essays & explanations (needs account balance)",
   },
   {
     id: "deepseek-reasoner",
     label: "DeepSeek R1 (Reasoner)",
     provider: "deepseek",
     modelId: "deepseek-reasoner",
-    description: "Best for math & complex logic",
+    description: "Best for math & complex logic (needs account balance)",
   },
 
-  // ---- OpenRouter (aggregator, many free models behind one key) ----
+  // ---- OpenRouter (aggregator) ----
+  // NOTE: OpenRouter's specific ":free" model IDs change or disappear
+  // frequently — providers rotate their free offerings weekly, and
+  // hardcoded slugs (like specific Llama/Qwen/DeepSeek :free routes)
+  // regularly go stale and return 404s. "openrouter/free" is OpenRouter's
+  // own auto-router: it always picks whichever free model is currently
+  // live, so this option keeps working even as the underlying list changes.
   {
-    id: "openrouter-llama-3.3-70b-free",
-    label: "Llama 3.3 70B (OpenRouter, free)",
+    id: "openrouter-auto-free",
+    label: "Auto Free Router (OpenRouter)",
     provider: "openrouter",
-    modelId: "meta-llama/llama-3.3-70b-instruct:free",
-    description: "Backup route for Llama 70B",
-  },
-  {
-    id: "openrouter-gemini-flash-free",
-    label: "Gemini 2.0 Flash (OpenRouter, free)",
-    provider: "openrouter",
-    modelId: "google/gemini-2.0-flash-exp:free",
-    description: "Backup route for Gemini",
-  },
-  {
-    id: "openrouter-mistral-7b-free",
-    label: "Mistral 7B (OpenRouter, free)",
-    provider: "openrouter",
-    modelId: "mistralai/mistral-7b-instruct:free",
-    description: "Light, quick answers",
+    modelId: "openrouter/free",
+    description: "Always picks a currently-working free model — most reliable",
   },
 ];
 
