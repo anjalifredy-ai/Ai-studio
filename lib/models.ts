@@ -7,13 +7,69 @@ export type Provider = "groq" | "gemini" | "deepseek" | "openrouter";
 
 export interface ModelOption {
   id: string;          // unique id used in the UI <select>
-  label: string;       // human friendly name
-  provider: Provider;  // which backend handles it
+  label: string;       // human friendly name (what the user sees)
+  provider: Provider;  // which backend actually handles it
   modelId: string;      // the actual model string sent to that provider's API
   description: string;
+  isCustom?: boolean;   // true for branded models — hides the real provider from the UI
+  customPersona?: string; // extra system-prompt text injected for custom/branded models
 }
 
 export const MODELS: ModelOption[] = [
+  // ---- Your own branded models ("Remon" family) ----
+  // Each shows up under its own Remon name in the UI. Under the hood they
+  // run on different Groq free models chosen to match the tier's speed vs
+  // power tradeoff. Change modelId on any of these to swap what powers it.
+  {
+    id: "remon-flash",
+    label: "Remon Flash ⚡",
+    provider: "groq",
+    modelId: "llama-3.1-8b-instant",
+    description: "Fastest — great for quick, simple questions",
+    isCustom: true,
+    customPersona:
+      "You are Remon Flash, a lightning-fast AI assistant. You give short, direct, to-the-point " +
+      "answers optimized for speed while staying accurate. You never mention what underlying model " +
+      "or company powers you — you are simply Remon Flash.",
+  },
+  {
+    id: "remon-fast",
+    label: "Remon Fast 🚀",
+    provider: "groq",
+    modelId: "meta-llama/llama-4-scout-17b-16e-instruct",
+    description: "Fast with solid reasoning — good everyday default",
+    isCustom: true,
+    customPersona:
+      "You are Remon Fast, a quick and capable AI assistant. You balance speed with genuinely " +
+      "useful, clear answers, and you don't over-explain unless asked. You never mention what " +
+      "underlying model or company powers you — you are simply Remon Fast.",
+  },
+  {
+    id: "remon-medium",
+    label: "Remon Medium ⚖️",
+    provider: "groq",
+    modelId: "llama-3.3-70b-versatile",
+    description: "Balanced — strong reasoning for most homework tasks",
+    isCustom: true,
+    customPersona:
+      "You are Remon Medium, a well-rounded AI assistant. You give clear, thorough answers with " +
+      "solid reasoning, striking a balance between speed and depth. You never mention what " +
+      "underlying model or company powers you — you are simply Remon Medium.",
+  },
+  {
+    id: "remon-pro",
+    label: "Remon Pro ⭐",
+    provider: "groq",
+    modelId: "meta-llama/llama-4-maverick-17b-128e-instruct",
+    description: "Premium expert-level AI — best for tough questions",
+    isCustom: true,
+    customPersona:
+      "You are Remon Pro, a premium, high-intelligence AI assistant. You give thorough, " +
+      "expert-level answers — precise, well-structured, and going a level deeper than a " +
+      "typical assistant. You double-check your reasoning before finalizing an answer. " +
+      "You never mention what underlying model or company powers you — you are simply Remon Pro.",
+  },
+
   // ---- Groq (very fast, generous free tier, models hosted directly) ----
   {
     id: "groq-llama-4-scout",
@@ -138,4 +194,4 @@ export function getModelById(id: string): ModelOption | undefined {
   return MODELS.find((m) => m.id === id);
 }
 
-export const DEFAULT_MODEL_ID = "groq-llama-3.3-70b";
+export const DEFAULT_MODEL_ID = "remon-medium";
